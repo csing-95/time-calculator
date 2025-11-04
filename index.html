@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css">
+  <title>Time Calculator</title>
+  <!-- <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .result {
+      margin-top: 15px;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style> -->
+</head>
+<body>
+  <div class="container">
+    <h2>Time Calculator</h2>
+    <label for="start">Start Time:</label>
+    <input type="time" id="start">
+
+    <label for="end">End Time:</label>
+    <input type="time" id="end">
+
+    <button onclick="calcTime()">Calculate Time Spent</button>
+
+    <div class="result" id="timeResult"></div>
+
+    <hr>
+
+    <label for="minutes">Convert Minutes to Decimal:</label>
+    <input type="number" id="minutes" placeholder="Enter minutes">
+
+    <button onclick="convertMinutes()">Convert</button>
+
+    <div class="result" id="minutesResult"></div>
+  </div>
+
+  <script>
+    function calcTime() {
+      const start = document.getElementById("start").value;
+      const end = document.getElementById("end").value;
+      if (!start || !end) return alert("Please enter both times");
+
+      const startTime = new Date(`1970-01-01T${start}:00`);
+      const endTime = new Date(`1970-01-01T${end}:00`);
+
+      let diffMs = endTime - startTime;
+      if (diffMs < 0) diffMs += 24 * 60 * 60 * 1000; // handle overnight
+
+      const minutes = diffMs / 60000;
+      const decimal = (minutes / 60).toFixed(2);
+
+      document.getElementById("timeResult").innerText =
+        `Time spent: ${minutes} minutes (${decimal} hours)`;
+    }
+
+    function convertMinutes() {
+      const minutes = document.getElementById("minutes").value;
+      if (!minutes) return alert("Please enter minutes");
+
+      const decimal = (minutes / 60).toFixed(2);
+      document.getElementById("minutesResult").innerText =
+        `${minutes} minutes = ${decimal} hours`;
+    }
+  </script>
+</body>
+</html>
